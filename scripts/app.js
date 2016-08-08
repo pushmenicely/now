@@ -46,26 +46,26 @@ var AppController = function () {
     value: function _stateChangeListener(state, data) {
       if (typeof state.interactive !== 'undefined') {
         if (state.interactive) {
-          console.info('on'));
+          console.info('on');
         } else {
-          console.info('off'));
+          console.info('off');
         }
       }
 
       if (typeof state.pushEnabled !== 'undefined') {
         if (state.pushEnabled) {
-          console.info('on'));
+          console.info('on');
         } else {
-          console.info('off'));
+          console.info('off');
         }
       }
 
       switch (state.id) {
         case 'UNSUPPORTED':
-          console.error('unsupported', data));
+          console.error('unsupported', data);
           break;
         case 'ERROR':
-          console.info('error', data));
+          console.info('error', data);
           break;
         default:
           break;

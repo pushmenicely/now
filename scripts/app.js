@@ -10,7 +10,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var AppController = function () {
   function AppController() {
     var _this = this;
-
     _classCallCheck(this, AppController);
 
     // Define a different server URL here if desire.
@@ -21,6 +20,7 @@ var AppController = function () {
 //      publicKey: window.base64UrlToUint8Array('BDd3_hVL9fZi9Ybo2UUzA284WG5FZR30_95YeZJsiA' + 'pwXKpNcF1rRPF3foIiBHXRdJI2Qhumhf6_LFTeZaNndIo'),
 //      privateKey: window.base64UrlToUint8Array('xKZKYRNdFFn8iQIF2MH54KTfUHwH105zBdzMR7SI3xI')
     };
+    this.ready = Promise.resolve();
   }
 
   _createClass(AppController, [{

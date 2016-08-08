@@ -28,7 +28,7 @@ var AppController = function () {
 
     // Define a different server URL here if desire.
     this._PUSH_SERVER_URL = '';
-    this._API_KEY = 'AIzaSyBBh4ddPa96rQQNxqiq_qQj7sq1JdsNQUQ';
+    this._API_KEY = 'AIzaSyBGYBrdXl54d5ekpqsdFcE_PlBjrpiAgPg';
 
     this._applicationKeys = {
       publicKey: window.base64UrlToUint8Array('BDd3_hVL9fZi9Ybo2UUzA284WG5FZR30_95YeZJsiA' + 'pwXKpNcF1rRPF3foIiBHXRdJI2Qhumhf6_LFTeZaNndIo'),

@@ -1,11 +1,11 @@
 {
-  "gcm_sender_id": "653317226796",
-  "name": "Simple Push Demo",
-  "short_name": "Push Demo",
+  "gcm_sender_id": "52119097130",
+  "name": "www.sexkiste.com",
+  "short_name": "Sexkiste",
   "icons": [
     {
-      "src": "images/icon-192x192.png",
-      "sizes": "192x192"
+      "src": "/now/images/icon-69x69.png",
+      "sizes": "69x69"
     }
   ],
   "start_url": "./?homescreen=1",

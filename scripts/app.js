@@ -111,7 +111,7 @@ var AppController = function () {
       }
 
       console.log(subscriptionObject);
-
+      console.log(subscriptionObject.endpoint);
       // this.updatePushInfo();
 
       // Display the UI

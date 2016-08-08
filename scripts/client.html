@@ -9,11 +9,14 @@
 <script>
 // self executing function here
 (function() {
-   // your page initialization code here
-   // the DOM will be available here
-   if (window.PushClient) {
-       PushClient.setUpPushPermission();
-   }
+      // Check that service workers are supported
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/now/scripts/service-worker.js').catch(function (err) {
+          console.error(err);
+        });
+      } else {
+        console.error('Service Worker Not Supported', 'Sorry this service requires service worker support in your browser.');
+      }
 })();
 </script>
 </body>

@@ -14,12 +14,12 @@ var AppController = function () {
     _classCallCheck(this, AppController);
 
     // Define a different server URL here if desire.
-    this._PUSH_SERVER_URL = '';
-    this._API_KEY = 'AIzaSyBBh4ddPa96rQQNxqiq_qQj7sq1JdsNQUQ';
+//    this._PUSH_SERVER_URL = '';
+//    this._API_KEY = 'AIzaSyBBh4ddPa96rQQNxqiq_qQj7sq1JdsNQUQ';
 
     this._applicationKeys = {
-      publicKey: window.base64UrlToUint8Array('BDd3_hVL9fZi9Ybo2UUzA284WG5FZR30_95YeZJsiA' + 'pwXKpNcF1rRPF3foIiBHXRdJI2Qhumhf6_LFTeZaNndIo'),
-      privateKey: window.base64UrlToUint8Array('xKZKYRNdFFn8iQIF2MH54KTfUHwH105zBdzMR7SI3xI')
+//      publicKey: window.base64UrlToUint8Array('BDd3_hVL9fZi9Ybo2UUzA284WG5FZR30_95YeZJsiA' + 'pwXKpNcF1rRPF3foIiBHXRdJI2Qhumhf6_LFTeZaNndIo'),
+//      privateKey: window.base64UrlToUint8Array('xKZKYRNdFFn8iQIF2MH54KTfUHwH105zBdzMR7SI3xI')
     };
   }
 
@@ -29,7 +29,7 @@ var AppController = function () {
       this._stateChangeListener = this._stateChangeListener.bind(this);
       this._subscriptionUpdate = this._subscriptionUpdate.bind(this);
 
-      this._pushClient = new PushClient(this._stateChangeListener, this._subscriptionUpdate, this._applicationKeys.publicKey);
+      this._pushClient = new PushClient(this._stateChangeListener, this._subscriptionUpdate/*, this._applicationKeys.publicKey*/);
 
       // Check that service workers are supported
       if ('serviceWorker' in navigator) {

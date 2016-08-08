@@ -3,21 +3,23 @@
 <head>
 	<meta charset=utf-8 />
 	<title>SSL-TEST</title>
+<script src="/now/scripts/app.js"></script>
 <script src="/now/scripts/client.js"></script>
 </head>
 <body>
 <script>
 // self executing function here
 (function() {
-      // Check that service workers are supported
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/now/scripts/service-worker.js').catch(function (err) {
-          console.error(err);
-        });
-      } else {
-        console.error('Service Worker Not Supported', 'Sorry this service requires service worker support in your browser.');
-      }
+   var appController = new AppController();
+  appController.ready.then(function () {
+    var host = "pushmenicely.github.io";
+    if (window.location.host === host && window.location.protocol !== "https:") {
+      window.location.protocol = "https";
+    }
+
+    appController.registerServiceWorker();
+  }); 
 })();
 </script>
 </body>
-</html>                                             
+</html>                        

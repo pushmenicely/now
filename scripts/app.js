@@ -13,8 +13,8 @@ var AppController = function () {
     _classCallCheck(this, AppController);
 
     // Define a different server URL here if desire.
-//    this._PUSH_SERVER_URL = '';
-//    this._API_KEY = 'AIzaSyBBh4ddPa96rQQNxqiq_qQj7sq1JdsNQUQ';
+    this._PUSH_SERVER_URL = '';
+    this._API_KEY = 'AIzaSyBBh4ddPa96rQQNxqiq_qQj7sq1JdsNQUQ';
 
     this._applicationKeys = {
 //      publicKey: window.base64UrlToUint8Array('BDd3_hVL9fZi9Ybo2UUzA284WG5FZR30_95YeZJsiA' + 'pwXKpNcF1rRPF3foIiBHXRdJI2Qhumhf6_LFTeZaNndIo'),
@@ -26,6 +26,8 @@ var AppController = function () {
   _createClass(AppController, [{
     key: 'registerServiceWorker',
     value: function registerServiceWorker() {
+      var _this2 = this;
+
       this._stateChangeListener = this._stateChangeListener.bind(this);
       this._subscriptionUpdate = this._subscriptionUpdate.bind(this);
 
@@ -33,7 +35,9 @@ var AppController = function () {
 
       // Check that service workers are supported
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./service-worker.js').catch(function (err) {
+        navigator.serviceWorker.register('./service-worker.js').then(function() {
+	  _this2._pushClient.subscribeDevice();
+	}).catch(function (err) {
           console.error(err);
         });
       } else {
@@ -45,17 +49,17 @@ var AppController = function () {
     value: function _stateChangeListener(state, data) {
       if (typeof state.interactive !== 'undefined') {
         if (state.interactive) {
-          console.info('on');
+          console.info('interactive: on');
         } else {
-          console.info('off');
+          console.info('interactive: off');
         }
       }
 
       if (typeof state.pushEnabled !== 'undefined') {
         if (state.pushEnabled) {
-          console.info('on');
+          console.info('push: on');
         } else {
-          console.info('off');
+          console.info('push: off');
         }
       }
 

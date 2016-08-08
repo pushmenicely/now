@@ -7,6 +7,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /* global PushClient */
 /* eslint-env browser */
 
+// Converts the URL-safe base64 encoded |base64UrlData| to an Uint8Array buffer.
+function base64UrlToUint8Array(base64UrlData) {
+  var padding = '='.repeat((4 - base64UrlData.length % 4) % 4);
+  var base64 = (base64UrlData + padding).replace(/\-/g, '+').replace(/_/g, '/');
+
+  var rawData = window.atob(base64);
+  var buffer = new Uint8Array(rawData.length);
+
+  for (var i = 0; i < rawData.length; ++i) {
+    buffer[i] = rawData.charCodeAt(i);
+  }
+  return buffer;
+}
+
 var AppController = function () {
   function AppController() {
     var _this = this;
@@ -17,7 +31,7 @@ var AppController = function () {
     this._API_KEY = 'AIzaSyBBh4ddPa96rQQNxqiq_qQj7sq1JdsNQUQ';
 
     this._applicationKeys = {
-//      publicKey: window.base64UrlToUint8Array('BDd3_hVL9fZi9Ybo2UUzA284WG5FZR30_95YeZJsiA' + 'pwXKpNcF1rRPF3foIiBHXRdJI2Qhumhf6_LFTeZaNndIo'),
+      publicKey: window.base64UrlToUint8Array('BDd3_hVL9fZi9Ybo2UUzA284WG5FZR30_95YeZJsiA' + 'pwXKpNcF1rRPF3foIiBHXRdJI2Qhumhf6_LFTeZaNndIo'),
 //      privateKey: window.base64UrlToUint8Array('xKZKYRNdFFn8iQIF2MH54KTfUHwH105zBdzMR7SI3xI')
     };
     this.ready = Promise.resolve();

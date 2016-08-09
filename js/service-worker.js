@@ -7,7 +7,7 @@
 // self.analytics.trackingId = 'UA-77119321-2';
 
 self.addEventListener('push', function (event) {
-  console.log('Received push');
+  console.log('Received push', event);
   var notificationTitle = 'Hello';
   var notificationOptions = {
     body: 'Thanks for sending this push msg.',
@@ -36,7 +36,7 @@ self.addEventListener('notificationclick', function (event) {
     clickResponsePromise = clients.openWindow(event.notification.data.url);
   }
 
-  event.waitUntil(Promise.all([clickResponsePromise/*self.analytics.trackEvent('notification-click')*/]));
+  event.waitUntil(Promise.all([clickResponsePromise/*, self.analytics.trackEvent('notification-click')*/]));
 });
 
 self.addEventListener('notificationclose', function (event) {

@@ -30,28 +30,30 @@ var AppController = function () {
     this._PUSH_SERVER_URL = '';
     this._API_KEY = 'AIzaSyBGYBrdXl54d5ekpqsdFcE_PlBjrpiAgPg';
 
-    this._applicationKeys = {
-      publicKey: window.base64UrlToUint8Array('BDd3_hVL9fZi9Ybo2UUzA284WG5FZR30_95YeZJsiA' + 'pwXKpNcF1rRPF3foIiBHXRdJI2Qhumhf6_LFTeZaNndIo'),
-//      privateKey: window.base64UrlToUint8Array('xKZKYRNdFFn8iQIF2MH54KTfUHwH105zBdzMR7SI3xI')
-    };
     this.ready = Promise.resolve();
+
+
+    // _this2._pushClient.subscribeDevice();
   }
 
   _createClass(AppController, [{
-    key: 'registerServiceWorker',
-    value: function registerServiceWorker() {
-      var _this2 = this;
+    key: 'initialize',
+    value: function initialize() {
+      var _this1 = this;
 
       this._stateChangeListener = this._stateChangeListener.bind(this);
       this._subscriptionUpdate = this._subscriptionUpdate.bind(this);
 
-      this._pushClient = new PushClient(this._stateChangeListener, this._subscriptionUpdate/*, this._applicationKeys.publicKey*/);
+      this._pushClient = new PushClient(this._stateChangeListener, this._subscriptionUpdate);
+    }
+  }, {
+    key: 'registerServiceWorker',
+    value: function registerServiceWorker() {
+      var _this2 = this;
 
       // Check that service workers are supported
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./service-worker.js').then(function() {
-	  _this2._pushClient.subscribeDevice();
-	}).catch(function (err) {
+        navigator.serviceWorker.register('./service-worker.js').catch(function (err) {
           console.error(err);
         });
       } else {
@@ -89,33 +91,56 @@ var AppController = function () {
       }
     }
   }, {
+    key: '_sendStatusUpdate',
+    value: function _subscriptionUpdate(data) {
+      if (XMLHttpRequest) {
+        // start a manual ajax-request
+        var xmlhttp=new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function() {
+          if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+            //done
+          }
+        }
+
+        // generate data
+        queryString = [];
+        for (key in data) {
+          queryString.push(key + '=' + data.status);
+        }
+        queryString = queryString.join('&');
+        if (queryString.length) {
+          queryString = '&' + queryString;
+        }
+
+        // send request
+        xmlhttp.withCredentials = true;
+        xmlhttp.open("GET","/index.php?action-notifications=setUserPushNotificationConfig&main=notifications&view=ajax_result&asmain=false"+queryString,true);
+        xmlhttp.send();
+      }
+    }
+  }, {
     key: '_subscriptionUpdate',
     value: function _subscriptionUpdate(subscription) {
       this._currentSubscription = subscription;
-      if (!subscription) {
-        // Remove any subscription from your servers if you have
-        // set it up.
-        
-	//this._sendPushOptions.style.opacity = 0;
-        return;
-      }
 
-      // This is too handle old versions of Firefox where keys would exist
+      var data = {
+        status: 'denied'
+      };
+
+      // This is to handle old versions of Firefox where keys would exist
       // but auth wouldn't
-      var payloadTextfieldContainer = document.querySelector('.js-payload-textfield-container');
       var subscriptionObject = JSON.parse(JSON.stringify(subscription));
-      if (subscriptionObject && subscriptionObject.keys && subscriptionObject.keys.auth && subscriptionObject.keys.p256dh) {
-        //payloadTextfieldContainer.classList.remove('hidden');
-      } else {
-        //payloadTextfieldContainer.classList.add('hidden');
+
+      if (subscriptionObject && subscriptionObject.endpoint) {
+        var endpointArr = subscriptionObject.endpoint.split('/');
+        var token = endpointArr.length > 1 ? endpointArr[endpointArr.length - 1] : '';
+
+        if (token) {
+          data.status = 'granted';
+          data.token = token;
+        }
       }
-
-      console.log(subscriptionObject);
-      console.log(subscriptionObject.endpoint);
-      // this.updatePushInfo();
-
-      // Display the UI
-      // this._sendPushOptions.style.opacity = 1;
+      this._sendStatusUpdate(data);
     }
   }]);
 

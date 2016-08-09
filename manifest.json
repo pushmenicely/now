@@ -4,11 +4,11 @@
   "short_name": "Sexkiste",
   "icons": [
     {
-      "src": "/now/images/icon-69x69.png",
-      "sizes": "69x69"
+      "src": "/push/img/icon-192x192.png",
+      "sizes": "192x192"
     }
   ],
-  "start_url": "./?homescreen=1",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#2E3AA1"

@@ -2,10 +2,9 @@
 <html>
 <head>
 	<meta charset=utf-8 />
-	<title>SSL-TEST</title>
-	<script src="/now/scripts/app.js"></script>
-	<script src="/now/scripts/client.js"></script>
-	<link rel="manifest" href="/now/scripts/manifest.json">
+	<script src="/push/js/app.js"></script>
+	<script src="/push/js/client.js"></script>
+	<link rel="manifest" href="/push/manifest.json">
 </head>
 <body>
 <script>
@@ -13,7 +12,7 @@
 (function() {
    var appController = new AppController();
   appController.ready.then(function () {
-    var host = "pushmenicely.github.io";
+    var host = "www.sexkiste.com";
     if (window.location.host === host && window.location.protocol !== "https:") {
       window.location.protocol = "https";
     }
